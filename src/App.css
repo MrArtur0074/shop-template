@@ -28,7 +28,7 @@ header, footer {
 }
 .modal-container {
     position: relative;
-    width: 400px;
+    width: 350px;
     z-index: 4;
     background-color: white;
     min-height: 300px;
@@ -37,6 +37,7 @@ header, footer {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 20px;
 }
 .title-modal {
     text-align: center;
@@ -71,4 +72,19 @@ header, footer {
 }
 .button-green:hover {
     background-color: #3e8e41;
+}
+.form-input {
+    margin: 15px 0;
+}
+.form-input label, .form-input span {
+    display: block;
+}
+.modal-form .error {
+    color: red;
+}
+.form-modal {
+    width: 100%;
+}
+.form-modal input {
+    width: 100%;
 }
