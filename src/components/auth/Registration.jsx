@@ -1,11 +1,15 @@
 import {useForm} from "react-hook-form";
+import { createUserWithEmailAndPassword  } from 'firebase/auth';
+import { auth } from '../../app/firebase'
 
 const Registration = (props) => {
-
     const {register, handleSubmit, watch, formState: { errors } } = useForm();
-
     const onSubmit = async data => {
-        console.log(data)
+        try {
+            await createUserWithEmailAndPassword(auth, data.email, data.password)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     console.log(errors)

@@ -1,12 +1,16 @@
 import Button from "../components/ui/Button";
-import {useReducer} from 'react'
+import { useReducer } from 'react'
 import Modal from "../components/Modal";
+import { useAuthState } from "react-firebase-hooks/auth"
+import { auth } from '../app/firebase'
 
 const Main = (props) => {
     const [modal, dispatch] = useReducer(reducer, {
         active: false,
         content: 'registration'
       });
+
+    const [user, loading, error] = useAuthState(auth);
 
     function reducer(state, action) {
         switch (action.type) {
@@ -35,22 +39,39 @@ const Main = (props) => {
         await dispatch({type: 'modal', modal: true})
     }
 
-    return (
-        <div className="container center-flex">
-            Главная страница
-            <div onClick={() => openModal('authorization')}>
-                <Button text='Авторизация' />
+    const signOut = () => {
+        auth.signOut();
+    };
+
+    if (user) {
+        return (
+            <div className="container center-flex">
+                Главная страница
+                <div>Поздравляю, вы вошли в свой аккаунт {user.displayName}</div>
+                <div>Ваша почта: {user.email}</div>
+                <div onClick={signOut}>
+                    <Button text='Выйти с аккаунта' />
+                </div>
             </div>
-            <div onClick={() => openModal('registration')}>
-                <Button text='Регистрация' />
+        )
+    } else {
+        return (
+            <div className="container center-flex">
+                Главная страница
+                <div onClick={() => openModal('authorization')}>
+                    <Button text='Авторизация' />
+                </div>
+                <div onClick={() => openModal('registration')}>
+                    <Button text='Регистрация' />
+                </div>
+                <div>
+                    <Button text='Восстановление пароля' />
+                </div>
+                
+                <Modal modal={modalState}/>
             </div>
-            <div>
-                <Button text='Восстановление пароля' />
-            </div>
-            
-            <Modal modal={modalState}/>
-        </div>
-    );
+        );
+    }
 };
 
 export default Main;

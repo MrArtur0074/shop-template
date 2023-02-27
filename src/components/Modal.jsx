@@ -7,11 +7,11 @@ const Modal = (props) => {
     function renderForm(param) {
         switch(param) {
             case 'authorization':
-                return <Authorization />;
+                return <Authorization closeModal={props?.modal?.dispatch} />;
             case 'registration':
-                return <Registration />;
+                return <Registration closeModal={props?.modal?.dispatch}/>;
             default:
-                return <Authorization />;
+                return <Authorization closeModal={props?.modal?.dispatch}/>;
         }
     }
 
