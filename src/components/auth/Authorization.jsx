@@ -1,5 +1,6 @@
 import google_image from '../../assets/google.png'
-import {auth, provider} from '../../app/firebase'
+import facebook_image from '../../assets/facebook.png'
+import {auth, provider, providerFacebook} from '../../app/firebase'
 import {signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth'
 import {useState} from 'react'
 
@@ -11,6 +12,15 @@ const Authorization = (props) => {
     async function signInWithGoogle() {
         try {
             await signInWithPopup(auth, provider)
+            props.closeModal({ type: "modal", active:"false"})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function signInWithFacebook() {
+        try {
+            await signInWithPopup(auth, providerFacebook)
             props.closeModal({ type: "modal", active:"false"})
         } catch (error) {
             console.log(error)
@@ -70,6 +80,18 @@ const Authorization = (props) => {
                         src={google_image} 
                         alt="" 
                         onClick={signInWithGoogle} />
+                        <img style={{
+                                maxWidth: '100%', 
+                                width: '32px',
+                                marginTop: '16px',
+                                display: 'block',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                cursor: 'pointer'
+                            }}
+                        src={facebook_image} 
+                        alt="" 
+                        onClick={signInWithFacebook} />
                 </div>
             </form>
         </div>

@@ -44,16 +44,27 @@ const Main = (props) => {
     };
 
     if (user) {
-        return (
-            <div className="container center-flex">
-                Главная страница
-                <div>Поздравляю, вы вошли в свой аккаунт {user.displayName}</div>
-                <div>Ваша почта: {user.email}</div>
-                <div onClick={signOut}>
-                    <Button text='Выйти с аккаунта' />
+        if (user.emailVerified)
+            return (
+                <div className="container center-flex">
+                    Главная страница
+                    <div>Поздравляю, вы вошли в свой аккаунт {user.displayName}</div>
+                    <div>Ваша почта: {user.email}</div>
+                    <div onClick={signOut}>
+                        <Button text='Выйти с аккаунта' />
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        else 
+            return (
+                <div className="container center-flex">
+                    Главная страница
+                    <div>Вам нужно подтвердить почту</div>
+                    <div onClick={signOut}>
+                        <Button text='Выйти с аккаунта' />
+                    </div>
+                </div>
+            )
     } else {
         return (
             <div className="container center-flex">
