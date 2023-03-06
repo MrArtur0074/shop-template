@@ -3,6 +3,8 @@ import { useReducer } from 'react'
 import Modal from "../components/Modal";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from '../app/firebase'
+import Header from '../components/header/Header'
+import Footer from '../components/footer/Footer'
 
 const Main = (props) => {
     const [modal, dispatch] = useReducer(reducer, {
@@ -67,19 +69,23 @@ const Main = (props) => {
             )
     } else {
         return (
-            <div className="container center-flex">
-                Главная страница
-                <div onClick={() => openModal('authorization')}>
-                    <Button text='Авторизация' />
+            <div>
+                <Header />
+                <div className="container center-flex">
+                    Главная страница
+                    <div onClick={() => openModal('authorization')}>
+                        <Button text='Авторизация' />
+                    </div>
+                    <div onClick={() => openModal('registration')}>
+                        <Button text='Регистрация' />
+                    </div>
+                    <div>
+                        <Button text='Восстановление пароля' />
+                    </div>
+                    
+                    <Modal modal={modalState}/>
                 </div>
-                <div onClick={() => openModal('registration')}>
-                    <Button text='Регистрация' />
-                </div>
-                <div>
-                    <Button text='Восстановление пароля' />
-                </div>
-                
-                <Modal modal={modalState}/>
+                <Footer />
             </div>
         );
     }
